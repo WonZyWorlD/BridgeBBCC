@@ -2,9 +2,9 @@
 /*
  (c) 2018 kuriyama hibiya <kuriyama@hibiya.moe>
  licensed under MIT license
- based on 'xcom' theme which based on 'mario' theme
+ based on 'mario' theme
 */
-@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Abel);
 
 @font-face {
   font-family: 'SeoulNamsan';
@@ -27,7 +27,7 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: 'Lato', 'SeoulNamsan', sans-serif;
+  font-family: 'Abel', 'SeoulNamsan', sans-serif;
 }
 body {
   position: absolute;
@@ -44,27 +44,49 @@ body {
 }
 .chat_outer_box {
   margin: 0.25rem 0;
-  padding: 0;
+  padding: 0.25rem;
   width: 100%;
-  background: rgba(0, 0, 0, 0.125);
-  text-shadow: 0 0 0.25rem #000, 0 0 0.125rem #000, 0 0 0.125rem #000, 0 0 0.125rem #000;
-  position: relative;
-  overflow: hidden;
+  background: rgba(0, 0, 0, 0.75);
 }
 /* Nickname / Badge */
 .chat_upper_box {
   position: relative;
-  padding: 0.25rem;
-  background: rgba(0, 0, 0, 0.125);
+  padding: 0.25rem 0 0.125rem 0;
   display: flex;
-  z-index: 10;
+}
+.chat_upper_box::before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.25rem;
+  border: 0.08rem solid #acc;
+  border-bottom: none;
+  box-sizing: border-box;
 }
 .chat_nickname_box {
   display: flex;
   flex-grow: 1;
   padding: 0 0.25rem;
-  color: #fff !important;
-  font-weight: 600;
+  color: #acc !important;
+}
+.chat_nickname_box::after {
+  display: block;
+  content: '';
+  background: linear-gradient(135deg,
+    #acc 0%,
+    #acc 25%,
+    transparent 25%,
+    transparent 50%,
+    #acc 50%,
+    #acc 75%,
+    transparent 75%);
+  background-size: 1rem 1rem;
+  flex-grow: 1;
+  margin: 0.125rem -0.125rem 0.125rem 0.25rem;
+  opacity: 0.1;
 }
 .chat_badge_box {
   display: flex;
@@ -73,10 +95,10 @@ body {
   margin-right: 0.25rem;
 }
 .chat_badge_box > img {
-  width: 1.375rem;
-  height: 1.375rem;
+  width: 1.125rem;
+  height: 1.125rem;
   margin: 0 0 0 0.1rem;
-  border: 0.125rem solid rgba(0, 0, 0, 0.5);
+  opacity: 0.75;
 }
 /* Messages */
 .chat_lower_box {
@@ -84,15 +106,13 @@ body {
   color: #fff;
 }
 .chat_msg_box {
-  padding: 0.25rem 0.5rem;
+  padding: 0.125rem 0.25rem;
   max-height: 14rem; /* 텍스트 영역 최대 높이 */
+  overflow: hidden;
   font-size: 0.9rem;
 }
 .chat_msg_box.image_only {
   text-align: center;
-}
-.chat_msg_box.image_only:empty {
-  display: none;
 }
 
 /* Image Sizes */
@@ -116,39 +136,56 @@ body {
 }
 .chat_subscribe_box,
 .chat_cheer_box	{ /* TODO: fix outgoing twip donations */
-  text-align: center;
+  display: flex;
+  text-align: right;
   font-weight: bold;
-  padding: 3rem 0.5rem 1rem 0.5rem;
-  margin-top: -2.5rem;
-  font-size: 1rem;
-  background: rgba(170, 204, 204, 0.5);
-  background-blend-mode: multiply;
+  padding: 0 0 0 0.25rem;
+  background: #acc;
   text-shadow: none;
   color: #000;
   animation: blinking-text 1s infinite alternate ease;
 }
+.chat_msg_box > .chat_cheer_box {
+  margin: -0.125rem -0.25rem 0.25rem -0.25rem;
+  font-size: 1rem;
+}
+.chat_cheer_box::after {
+  display: block;
+  content: '';
+  flex-grow: 1;
+  background: linear-gradient(135deg,
+    #000 0%,
+    #000 25%,
+    transparent 25%,
+    transparent 50%,
+    #000 50%,
+    #000 75%,
+    transparent 75%);
+  background-size: 1rem 1rem;
+  opacity: 0.1;
+  margin: 0.25rem;
+}
+.chat_subscribe_box {
+  /* margin: -0.75rem -0.25rem 0.25rem -0.25rem; */
+}
 .chat_cheer_text {
-  color: #fff;
+  color: #5a5;
   display: inline-block;
   padding: 0.1rem 0.25rem;
   margin: 0.08rem;
-  border: 0.08rem solid #fff;
-  background-color: rgba(0, 0, 0, 0.125);
-}
-.chat_msg_box > .chat_cheer_box {
-  margin: -2.5rem -0.5rem 0 -0.5rem;
-}
-.chat_subscribe_box + .chat_msg_box:empty {
-  display: none;
+  border: 0.08rem solid #5a5;
+  background-color: #000;
 }
 
 /* Clip */
 .chat_clip_box {
   display: flex;
   flex-direction: column;
+
+  position: relative;
   height: 8rem;
+  overflow: hidden;
   padding: 0.25rem 0.5rem;
-  color: #fff;
 }
 .chat_clip_box.invalid {
   height: 1.5rem;
@@ -163,6 +200,7 @@ body {
   bottom: 0;
   left: 0;
   margin: auto;
+
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -178,5 +216,15 @@ body {
 .chat_clip_by {
   text-align: right;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.5);
+}
+/* add small credit */
+.chat_upper_box[style="display: none;"] + .chat_lower_box > .chat_msg_box::after {
+  display: block;
+  content: 'XCOM theme by hibiyasleep';
+  font-size: 0.5rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0 -0.5rem -0.5rem -0.5rem;
+  padding: 0 0.5rem 0.25rem 0.5rem
 }

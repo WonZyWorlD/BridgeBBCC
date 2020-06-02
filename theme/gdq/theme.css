@@ -2,9 +2,9 @@
 /*
  (c) 2018 kuriyama hibiya <kuriyama@hibiya.moe>
  licensed under MIT license
- based on 'xcom' theme which based on 'mario' theme
+ based on 'mario' and 'xcom' theme
 */
-@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro);
 
 @font-face {
   font-family: 'SeoulNamsan';
@@ -27,7 +27,7 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: 'Lato', 'SeoulNamsan', sans-serif;
+  font-family: 'Source Code Pro', 'SeoulNamsan', sans-serif;
 }
 body {
   position: absolute;
@@ -43,55 +43,67 @@ body {
   word-wrap: break-word;
 }
 .chat_outer_box {
-  margin: 0.25rem 0;
-  padding: 0;
+  margin: 0;
+  padding: 0.25rem;
   width: 100%;
-  background: rgba(0, 0, 0, 0.125);
-  text-shadow: 0 0 0.25rem #000, 0 0 0.125rem #000, 0 0 0.125rem #000, 0 0 0.125rem #000;
-  position: relative;
-  overflow: hidden;
 }
 /* Nickname / Badge */
 .chat_upper_box {
   position: relative;
-  padding: 0.25rem;
-  background: rgba(0, 0, 0, 0.125);
   display: flex;
-  z-index: 10;
+  border-bottom: 0.125rem solid rgba(255, 255, 255, 0.25);
+  filter: drop-shadow(0 0 0.125rem #000);
+  margin-bottom: 0.5rem;
 }
 .chat_nickname_box {
   display: flex;
-  flex-grow: 1;
-  padding: 0 0.25rem;
-  color: #fff !important;
+  padding: 0 0.125rem;
+  margin-bottom: -0.125rem;
+  min-width: 8rem;
   font-weight: 600;
+  letter-spacing: -0.04rem;
+  color: #fff !important;
+  border-bottom: 0.125rem solid #fff;
 }
 .chat_badge_box {
   display: flex;
+  flex-grow: 1;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 0.25rem;
 }
 .chat_badge_box > img {
-  width: 1.375rem;
-  height: 1.375rem;
+  width: 1.125rem;
+  height: 1.125rem;
   margin: 0 0 0 0.1rem;
-  border: 0.125rem solid rgba(0, 0, 0, 0.5);
 }
 /* Messages */
 .chat_lower_box {
-  position: relative;
   color: #fff;
+  background: linear-gradient(to bottom, rgba(0, 136, 136, 0.9), rgba(0, 136, 136, 0.7) 50%);
+  position: relative;
+  border: 0.08rem solid #fff;
+}
+.chat_lower_box::before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0.25rem;
+  width: 0.75rem;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.0));
+  z-index: 100;
 }
 .chat_msg_box {
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 1.125rem 0.25rem 0.5rem;
   max-height: 14rem; /* 텍스트 영역 최대 높이 */
+  overflow: hidden;
   font-size: 0.9rem;
 }
 .chat_msg_box.image_only {
   text-align: center;
 }
-.chat_msg_box.image_only:empty {
+.chat_msg_box:empty {
   display: none;
 }
 
@@ -110,45 +122,42 @@ body {
 }
 
 /* Special Cases */
-@keyframes blinking-text {
-  from { color: #000; }
-  to { color: rgba(0, 0, 0, 0.5); }
-}
 .chat_subscribe_box,
-.chat_cheer_box	{ /* TODO: fix outgoing twip donations */
+.chat_cheer_box {
   text-align: center;
   font-weight: bold;
-  padding: 3rem 0.5rem 1rem 0.5rem;
-  margin-top: -2.5rem;
-  font-size: 1rem;
-  background: rgba(170, 204, 204, 0.5);
-  background-blend-mode: multiply;
+  padding: 1rem 1rem 1rem 0.25rem;
+  background: rgba(255, 220, 0, 0.5);
+  mix-blend-mode: hard-light;
   text-shadow: none;
   color: #000;
   animation: blinking-text 1s infinite alternate ease;
 }
-.chat_cheer_text {
-  color: #fff;
-  display: inline-block;
-  padding: 0.1rem 0.25rem;
-  margin: 0.08rem;
-  border: 0.08rem solid #fff;
-  background-color: rgba(0, 0, 0, 0.125);
-}
 .chat_msg_box > .chat_cheer_box {
-  margin: -2.5rem -0.5rem 0 -0.5rem;
+  margin: -0.25rem -1.125rem 0 -0.5rem;
+  font-size: 1rem;
 }
 .chat_subscribe_box + .chat_msg_box:empty {
   display: none;
+}
+.chat_cheer_text {
+  color: #5a5;
+  display: inline-block;
+  padding: 0.1rem 0.25rem;
+  margin: 0.08rem;
+  border: 0.08rem solid #5a5;
+  background-color: #000;
 }
 
 /* Clip */
 .chat_clip_box {
   display: flex;
   flex-direction: column;
+
+  position: relative;
   height: 8rem;
+  overflow: hidden;
   padding: 0.25rem 0.5rem;
-  color: #fff;
 }
 .chat_clip_box.invalid {
   height: 1.5rem;
@@ -174,9 +183,20 @@ body {
 .chat_clip_title {
   flex-grow: 1;
   overflow: hidden;
+  color: #fff;
 }
 .chat_clip_by {
   text-align: right;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.5);
+}
+/* add small credit */
+.chat_upper_box[style="display: none;"] + .chat_lower_box > .chat_msg_box::after {
+  display: block;
+  content: 'GDQ2018 theme by hibiyasleep';
+  font-size: 0.5rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0 -0.5rem -0.5rem -0.5rem;
+  padding: 0 0.5rem 0.25rem 0.5rem
 }
